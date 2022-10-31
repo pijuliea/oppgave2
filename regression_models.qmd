@@ -11,6 +11,7 @@ editor_options:
 **Watt på 2 mmol**
 
 ```{r}
+#| include: false
 #| echo: false
 #| message: false
 #| warning: false
@@ -33,6 +34,19 @@ m <- lm(watt ~ lactate, data = dat)
 
 summary(m)
 
+
+dat %>%
+  ggplot(aes(watt, lactate, group = subject))  + 
+  geom_line(lty = 2) +
+  geom_point(shape = 21, fill = "lightblue", size = 2.5) +
+  geom_hline(yintercept = 2, color = "red") +
+  geom_vline(xintercept = 309, color = "blue")
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 
 dat %>%
   ggplot(aes(watt, lactate, group = subject))  + 
@@ -70,7 +84,9 @@ cyclingstudy %>%
   geom_vline(xintercept = 341.5, color = "blue")
 ```
 
-**compare the reliability (typical error as a percentage of the mean) between the two thresholds**
+**Reliabilitet**
+
+(compare the reliability (typical error as a percentage of the mean) between the two thresholds)
 
 ```{r}
 #| include: false
@@ -83,11 +99,100 @@ library(exscidata)
 
 data("cyclingstudy")
 
-
 ```
 
 ## Part 2: Predicting sizes of DNA fragments
 
+In your report you should show how you arrived to your predicted sizes by including the code chunk in your report
+
+**Calibration model**
+
+```{r}
+read.csv("Results_DNA.csv")
+
+ladder <- data.frame(dist = c(29, 43.5, 60.5,
+                              80.5, 106.5,  141.5,  
+                              181.5, 243.5, 281.5,
+                              328.5, 390.5, 465.5, 580.5), 
+                     mw = c(1000, 900, 800, 
+                            700, 600, 500,
+                            400, 300, 250, 
+                            200, 150, 100, 50))
+
+
+unknown <- data.frame(dist = c(36, 60.8, 90.2, 122.2, 160.2, 208.2, 262.2, 334.2, 374.2, 422.2, 480.2, 540.8, 612.8, 242.2, 307.5, 588.8))
+
+cal <- lm(log(mw) ~ dist, data = ladder)
+
+ladder %>%
+  ggplot(aes(dist, log(mw))) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm") +
+  labs(x = "dist",
+       y = "log(mv)")
+
+summary(cal)
+
+preds <- exp(predict(cal, newdata = unknown))
+```
+
+**Predicted sizes**
+
+```{r}
+unknown %>%
+  ggplot(aes(dist, preds)) +
+  geom_point()
+```
+
 ## Part 3: Intepreting a regression table
 
-#\| include: false
+Include a regression table from your analysis in the report and
+interpret its components in plain language (e.g. for an unit difference
+in the independent variable the dependent variable differs by *y* units). The interpretation should also include a description and explanation of the standard error, the *t*-value and the *p*-value. Valuable guidance on how to interpret the table may be found in for example and in ([Frigessi and Aalen 2018](https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-statistiske_metoder)), ([Campbell, Walters, and Machin 2020](https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-campbell_2020)) and ([Spiegelhalter 2019, chap. 5](https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-RN2902)).
+
+Special attention should be made concerning the *p*-value. How do you define and interpret the *p*-value in your regression table. *What does it mean?*.
+
+residual standard error: 9.808 on 27 degrees of freedom
+
+t-verdi: 1.265 (intercept) og -1.429 (P_change)
+
+p-verdi: 0.1646
+
+```{r}
+#| include: false
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library (exscidata)
+library(gt)
+data(hypertrophy)
+
+dat1 <- hypertrophy %>%
+  mutate(VL_change = ((VL_T3 - VL_T1) / VL_T1 * 100),
+         P_change = ((PHOSPHOP70S6K_T3 - PHOSPHOP70S6K_T1) / PHOSPHOP70S6K_T1 * 100)) %>%
+  select(PARTICIPANT, VL_change, P_change) %>%
+  print()
+
+m <- lm(VL_change ~ P_change, data = dat1)
+
+summary(m)
+
+plot(m)
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+dat1 %>%
+  ggplot(aes(P_change, VL_change)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm") +
+  labs(x = "T1 to T3 p-p70s6k change (%)",
+       y = "T1 to T3 VL thickness change (%)") +
+  geom_vline(xintercept = 0) +
+  geom_hline(yintercept = 0) +
+  annotate("label", x = max(-60), y = 20, label = "p = 0.1646")
+```
