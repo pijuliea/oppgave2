@@ -2,6 +2,92 @@
 title: "Assignment 2: Regression models, predicting from data"
 format: html
 editor: visual
+editor_options: 
+  chunk_output_type: console
 ---
 
-# Assignment 2: Regression models, predicting from data
+## Part 1: Lactate thresholds
+
+**Watt på 2 mmol**
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(exscidata)
+
+data("cyclingstudy")
+
+dat <- cyclingstudy %>%
+  select(subject, group, timepoint, lac.225:lac.375) %>%
+  filter(timepoint == "pre", subject == 10) %>%
+  pivot_longer(names_to = "watt", 
+               values_to = "lactate", 
+               names_prefix = "lac.",
+               names_transform = list(watt = as.numeric),
+               cols = lac.225:lac.375)
+
+m <- lm(watt ~ lactate, data = dat)
+
+summary(m)
+
+
+dat %>%
+  ggplot(aes(watt, lactate, group = subject))  + 
+  geom_line(lty = 2) +
+  geom_point(shape = 21, fill = "lightblue", size = 2.5) +
+  geom_hline(yintercept = 2, color = "red") +
+  geom_vline(xintercept = 309, color = "blue")
+```
+
+**Watt på 4 mmol**
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(exscidata)
+
+data("cyclingstudy")
+
+cyclingstudy %>%
+  select(subject, group, timepoint, lac.225:lac.375) %>%
+  filter(timepoint == "pre", subject == 10) %>%
+  pivot_longer(names_to = "watt", 
+               values_to = "lactate", 
+               names_prefix = "lac.",
+               names_transform = list(watt = as.numeric),
+               cols = lac.225:lac.375) %>%
+ 
+  ggplot(aes(watt, lactate, group = subject))  + 
+  geom_line(lty = 2) +
+  geom_point(shape = 21, fill = "lightblue", size = 2.5) +
+  geom_hline(yintercept = 4, color = "red") +
+  geom_vline(xintercept = 341.5, color = "blue")
+```
+
+**compare the reliability (typical error as a percentage of the mean) between the two thresholds**
+
+```{r}
+#| include: false
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(exscidata)
+
+data("cyclingstudy")
+
+
+```
+
+## Part 2: Predicting sizes of DNA fragments
+
+## Part 3: Intepreting a regression table
+
+#\| include: false
