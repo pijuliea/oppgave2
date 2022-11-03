@@ -88,6 +88,12 @@ cyclingstudy %>%
 
 (compare the reliability (typical error as a percentage of the mean) between the two thresholds)
 
+watt - 2 mmol: 309
+
+watt - 4 mmol: 341.5
+
+typical error: 16.847
+
 ```{r}
 #| include: false
 #| echo: false
@@ -146,13 +152,11 @@ unknown %>%
 
 ## Part 3: Intepreting a regression table
 
-Include a regression table from your analysis in the report and
-interpret its components in plain language (e.g. for an unit difference
-in the independent variable the dependent variable differs by *y* units). The interpretation should also include a description and explanation of the standard error, the *t*-value and the *p*-value. Valuable guidance on how to interpret the table may be found in for example and in ([Frigessi and Aalen 2018](https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-statistiske_metoder)), ([Campbell, Walters, and Machin 2020](https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-campbell_2020)) and ([Spiegelhalter 2019, chap. 5](https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-RN2902)).
+Include a regression table from your analysis in the report and interpret its components in plain language (e.g. for an unit difference in the independent variable the dependent variable differs by *y* units). The interpretation should also include a description and explanation of the standard error, the *t*-value and the *p*-value. Valuable guidance on how to interpret the table may be found in for example and in ([Frigessi and Aalen 2018](https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-statistiske_metoder)), ([Campbell, Walters, and Machin 2020](https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-campbell_2020)) and ([Spiegelhalter 2019, chap. 5](https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-RN2902)).
 
 Special attention should be made concerning the *p*-value. How do you define and interpret the *p*-value in your regression table. *What does it mean?*.
 
-residual standard error: 9.808 on 27 degrees of freedom
+standard error: 1.87861 (intercept), 0.08936 (p_change)
 
 t-verdi: 1.265 (intercept) og -1.429 (P_change)
 
