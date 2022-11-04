@@ -122,6 +122,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<p>Annlaug Skarpeid, Mari Hebnes Tobekk, Emil Åberg, Emil Hosøy, Pia Julie Demler</p>
 <section id="part-1-lactate-thresholds" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-lactate-thresholds">Part 1: Lactate thresholds</h2>
 <p><strong>Watt på 2 mmol</strong></p>
@@ -137,11 +138,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p><strong>Reliabilitet</strong></p>
-<p>(compare the reliability (typical error as a percentage of the mean) between the two thresholds)</p>
+<p>Watt på 2 mmol: 309 - 5.45%</p>
+<p>Watt på 4 mmol: 341.5 - 4.93%</p>
+<p>Typical error: 16.847</p>
 </section>
 <section id="part-2-predicting-sizes-of-dna-fragments" class="level2">
 <h2 class="anchored" data-anchor-id="part-2-predicting-sizes-of-dna-fragments">Part 2: Predicting sizes of DNA fragments</h2>
-<p>In your report you should show how you arrived to your predicted sizes by including the code chunk in your report</p>
 <p><strong>Calibration model</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"Results_DNA.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -188,7 +190,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="regression_models_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="regression_models_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -219,20 +221,16 @@ F-statistic:  5398 on 1 and 11 DF,  p-value: 3.691e-16</code></pre>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(dist, preds)) <span class="sc">+</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="regression_models_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="regression_models_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="part-3-intepreting-a-regression-table" class="level2">
 <h2 class="anchored" data-anchor-id="part-3-intepreting-a-regression-table">Part 3: Intepreting a regression table</h2>
-<p>Include a regression table from your analysis in the report and interpret its components in plain language (e.g.&nbsp;for an unit difference in the independent variable the dependent variable differs by <em>y</em> units). The interpretation should also include a description and explanation of the standard error, the <em>t</em>-value and the <em>p</em>-value. Valuable guidance on how to interpret the table may be found in for example and in (<a href="https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-statistiske_metoder">Frigessi and Aalen 2018</a>), (<a href="https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-campbell_2020">Campbell, Walters, and Machin 2020</a>) and (<a href="https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-RN2902">Spiegelhalter 2019, chap.&nbsp;5</a>).</p>
-<p>Special attention should be made concerning the <em>p</em>-value. How do you define and interpret the <em>p</em>-value in your regression table. <em>What does it mean?</em>.</p>
-<p>residual standard error: 9.808 on 27 degrees of freedom</p>
-<p>t-verdi: 1.265 (intercept) og -1.429 (P_change)</p>
-<p>p-verdi: 0.1646</p>
+<p>Standard error er standardavviket av gjennomsnittene i en gruppe og standard error forteller oss hvor bra en modell er. En mer representativ prøve av en studie har mindre standard error. Standard error i vår modell er 0.08936. T-verdien blir brukt for å teste hypothesen og måler hvor stor forskjellen er i variasjonen i dataen. En høyere t-verdi betyr at det er med sannsynlig at null-hypothesen er sant. Vår t-verdi er -1.429. T-verdien blir brukt sammen med p-verdien. P-verdien forteller oss hvor sannsynlig det er at vår resultat er tilfeldig eller ikke. P-verdien i vår modell er 0.1646. Siden p-verdien er over 0.05 er ikke hypothesen vår signifikant og det er stor sannsynlighet at resultatene våre er tilfeldige.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="regression_models_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="regression_models_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>

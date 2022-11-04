@@ -6,6 +6,8 @@ editor_options:
   chunk_output_type: console
 ---
 
+Annlaug Skarpeid, Mari Hebnes Tobekk, Emil Åberg, Emil Hosøy, Pia Julie Demler
+
 ## Part 1: Lactate thresholds
 
 **Watt på 2 mmol**
@@ -86,30 +88,13 @@ cyclingstudy %>%
 
 **Reliabilitet**
 
-(compare the reliability (typical error as a percentage of the mean) between the two thresholds)
+Watt på 2 mmol: 309 - 5.45%
 
-watt - 2 mmol: 309
+Watt på 4 mmol: 341.5 - 4.93%
 
-watt - 4 mmol: 341.5
-
-typical error: 16.847
-
-```{r}
-#| include: false
-#| echo: false
-#| message: false
-#| warning: false
-
-library(tidyverse)
-library(exscidata)
-
-data("cyclingstudy")
-
-```
+Typical error: 16.847
 
 ## Part 2: Predicting sizes of DNA fragments
-
-In your report you should show how you arrived to your predicted sizes by including the code chunk in your report
 
 **Calibration model**
 
@@ -152,15 +137,7 @@ unknown %>%
 
 ## Part 3: Intepreting a regression table
 
-Include a regression table from your analysis in the report and interpret its components in plain language (e.g. for an unit difference in the independent variable the dependent variable differs by *y* units). The interpretation should also include a description and explanation of the standard error, the *t*-value and the *p*-value. Valuable guidance on how to interpret the table may be found in for example and in ([Frigessi and Aalen 2018](https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-statistiske_metoder)), ([Campbell, Walters, and Machin 2020](https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-campbell_2020)) and ([Spiegelhalter 2019, chap. 5](https://dhammarstrom.github.io/quant-methods-workshops/assignment-2.html#ref-RN2902)).
-
-Special attention should be made concerning the *p*-value. How do you define and interpret the *p*-value in your regression table. *What does it mean?*.
-
-standard error: 1.87861 (intercept), 0.08936 (p_change)
-
-t-verdi: 1.265 (intercept) og -1.429 (P_change)
-
-p-verdi: 0.1646
+Standard error er standardavviket av gjennomsnittene i en gruppe og standard error forteller oss hvor bra en modell er. En mer representativ prøve av en studie har mindre standard error. Standard error i vår modell er 0.08936. T-verdien blir brukt for å teste hypothesen og måler hvor stor forskjellen er i variasjonen i dataen. En høyere t-verdi betyr at det er med sannsynlig at null-hypothesen er sant. Vår t-verdi er -1.429. T-verdien blir brukt sammen med p-verdien. P-verdien forteller oss hvor sannsynlig det er at vår resultat er tilfeldig eller ikke. P-verdien i vår modell er 0.1646. Siden p-verdien er over 0.05 er ikke hypothesen vår signifikant og det er stor sannsynlighet at resultatene våre er tilfeldige.
 
 ```{r}
 #| include: false
@@ -190,6 +167,7 @@ plot(m)
 #| echo: false
 #| message: false
 #| warning: false
+
 dat1 %>%
   ggplot(aes(P_change, VL_change)) +
   geom_point() +
